@@ -30,15 +30,17 @@ jobs:
     - name: Build RediSearch
       run: |
         git submodule update --init --recursive
-        make build
+        mkdir -p build
+        cd build
+        cmake ..
+        make
 
     - name: Find redisearch.so
       run: |
-        find . -name "redisearch.so"
+        find . -name "redisearch.so" || echo "redisearch.so not found"
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: redisearch-so
-        path: |
-          **/redisearch.so
+        path: build/redisearch.so
