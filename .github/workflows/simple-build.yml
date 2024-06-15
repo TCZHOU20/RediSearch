@@ -35,4 +35,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: redisearch-so
-        path: build/src/redisearch.so
+        path: build/src/redisearch.so 
