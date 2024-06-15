@@ -1,4 +1,4 @@
-name: Build and Upload RediSearch
+name: Build RediSearch
 
 on:
   push:
@@ -16,11 +16,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Rust
-      uses: actions-rs/toolchain@v1
+    - name: Set up Redis
+      uses: redislabs/redis-enterprise-docker@v1
       with:
-        toolchain: stable
-        override: true
+        redis_version: 6.2.5
 
     - name: Install dependencies
       run: |
@@ -29,18 +28,13 @@ jobs:
 
     - name: Build RediSearch
       run: |
-        git submodule update --init --recursive
-        mkdir -p build
+        mkdir build
         cd build
         cmake ..
         make
 
-    - name: Find redisearch.so
-      run: |
-        find . -name "redisearch.so" || echo "redisearch.so not found"
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
+    - name: Upload shared library
+      uses: actions/upload-artifact@v2
       with:
-        name: redisearch-so
-        path: build/redisearch.so
+        name: rediSearch-shared-library
+        path: build/src/redisearch.so
