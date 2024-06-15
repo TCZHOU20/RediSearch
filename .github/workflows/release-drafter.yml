@@ -13,9 +13,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Draft release
-      uses: release-drafter/release-drafter@v5
+      uses: release-drafter/release-drafter@v5.21.0
       with:
         config-name: .github/release-drafter-config.yml
