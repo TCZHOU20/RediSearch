@@ -31,5 +31,5 @@ jobs:
     - name: Upload shared library
       uses: actions/upload-artifact@v2
       with:
-        name: rediSearch-shared-library
+        name: redisearch-so
         path: build/src/redisearch.so
