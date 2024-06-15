@@ -1,0 +1,38 @@
+name: Simple Build RediSearch
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake
+
+    - name: Build RediSearch
+      run: |
+        mkdir -p build
+        cd build
+        cmake ..
+        make
+
+    - name: List build directory
+      run: ls -la build/src
+
+    - name: Upload shared library
+      uses: actions/upload-artifact@v2
+      with:
+        name: redisearch-so
+        path: build/src/redisearch.so
