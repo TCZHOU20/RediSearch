@@ -16,11 +16,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Redis
-      uses: redislabs/redis-enterprise-docker@v1
-      with:
-        redis_version: 6.2.5
-
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -28,7 +23,7 @@ jobs:
 
     - name: Build RediSearch
       run: |
-        mkdir build
+        mkdir -p build
         cd build
         cmake ..
         make
